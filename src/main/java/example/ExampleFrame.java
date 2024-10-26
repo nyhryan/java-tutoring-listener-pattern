@@ -10,12 +10,13 @@ class ExampleFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        var eventButtonPanel = new EventButtonPanel(); // 리스너 객체를 들고 있다.
-        var canvasPanel = new CanvasPanel();           // 리스너 객체를 참고(사용)한다.
+        // 1. 버튼 패널을 먼저 만든다. = 마우스 어댑터가 먼저 생성된다.
+        var eventButtonPanel = new EventButtonPanel();
 
-        // 캔버스의 변화를 듣고있는 리스너를 캔버스에 등록한다.
-        // 캔버스는 자신에게 변화가 발생하면, 듣고있는 리스너에게 알려준다!
-//        canvasPanel.setListener(eventButtonPanel.getListener());
+        // 2. 캔버스 패널을 만든다. 이때, 위에서 생긴 마우스 어댑터를 가지고와서 등록한다.
+        var canvasPanel = new CanvasPanel();
+        canvasPanel.addMouseListener(eventButtonPanel.getMouseAdapter());
+        canvasPanel.addMouseMotionListener(eventButtonPanel.getMouseAdapter());
 
         JPanel contentPane = new JPanel();
         contentPane.add(eventButtonPanel, BorderLayout.NORTH);

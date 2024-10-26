@@ -1,9 +1,7 @@
 plugins {
     id("java")
     id("application")
-    id("eclipse")
-    id("io.freefair.lombok") version "8.10.2"
-}
+    id("eclipse") }
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
@@ -13,8 +11,9 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 application {

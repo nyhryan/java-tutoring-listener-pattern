@@ -1,9 +1,8 @@
 package example;
 
-import lombok.Getter;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
@@ -27,30 +26,31 @@ class EventButtonPanel extends JPanel {
         return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
     }
 
-    // 캔버스에서 신호를 보내면, 여기서 처리합니다
-    // ex) 캔버스에서 마우스 press를 알림 = onPress() 호출: onPressBtn의 색상 변경!
-    @Getter
-    private final CanvasListener listener = new CanvasListener() {
-//        @Override
-//        public void onClick() {
-//            onClickBtn.setBackground(getRandomColor());
-//        }
-//
-//        @Override
-//        public void onPress() {
-//            onPressBtn.setBackground(getRandomColor());
-//        }
-//
-//        @Override
-//        public void onRelease() {
-//            onReleaseBtn.setBackground(getRandomColor());
-//        }
-//
-//        @Override
-//        public void onDrag() {
-//            onDragBtn.setBackground(getRandomColor());
-//        }
+    private MouseAdapter mouseAdapter = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            onClickBtn.setBackground(getRandomColor());
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            onPressBtn.setBackground(getRandomColor());
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            onReleaseBtn.setBackground(getRandomColor());
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            onDragBtn.setBackground(getRandomColor());
+        }
     };
+
+    public MouseAdapter getMouseAdapter() {
+        return mouseAdapter;
+    }
 
     public EventButtonPanel() {
         setLayout(new FlowLayout());
